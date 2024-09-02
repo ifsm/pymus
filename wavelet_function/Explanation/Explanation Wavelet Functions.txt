@@ -1,0 +1,13 @@
+--- Why do we need wavelet transformations?---
+Wavelet functions are used to analyze audio signals. 
+As opposed to the Fourier transformation, which is only able to persave information about the frequency and not the time component, the Wavelet fransformation can capture both frequency and time information of the audio signal.
+This is possible because it is a complex transformation, wich means you have two independent degrees of freedom to save both types of information, one in the real and the other in the imaginary part of a complex number. ([2], P.61 ff.)
+
+To perform a wavelet transformation you start with a time series, let's call it x_n and a wavlet function  ψ_0(η) which depends on a nondimensional
+ “time” parameter η and a nondimensional frequency. ([2], P.61 ff.)
+For the different types of wavelet functions, which are available for this code, see "basics_about_wavelets".
+"Wavelet transformation" means the conxolution of the time series with the wavelet function. 
+
+
+
+--- basic mathematical description ---

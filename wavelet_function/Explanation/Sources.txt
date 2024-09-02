@@ -1,0 +1,8 @@
+Sources and additional information: 
+
+[1] https://davrot.github.io/pytutorial/pywavelet/, Uni Bremen, Zugriff am 28.09.2024.
+[2] https://paos.colorado.edu/research/wavelets/bams_79_01_0061.pdf, A Practical Guide to Wavelet Analysis, Christopher Torrence and Gilbert P. Compo.
+[3] http://dodo.fb06.fh-muenchen.de/maier/Wavelet-Transformation.pdf, Zugriff am 24.6.2024.
+[4] https://pywavelets.readthedocs.io/en/latest/, Zugriff am 30.6.2024.
+[5] https://pywavelets.readthedocs.io/en/latest/ref/idwt-inverse-discrete-wavelet-transform.html, Zugriff am 28.09.2024.
+[6] https://pywavelets.readthedocs.io/en/latest/ref/cwt.html, Zugriff am 28.09.2024.

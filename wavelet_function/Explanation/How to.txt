@@ -1,0 +1,135 @@
+Step by Step guide through the Code for Wavelet transformation
+[For a mathematical explanation of wavelet functions see "Explanation Wavelet Functions".]
+For furhter explanation and demonstration of pywt see [6].
+
+
+
+
+-- basics_about_wavelets --
+
+    This module provides an overview of the different types of continuous wavelet functions, as further explained in "Explanation Wavelet Functions."
+    The code does not need to be modified.
+
+    First, import matplotlib.pyplot as the module for plotting, and pywt, which is an open-source wavelet transform module.
+    Next, generate and plot all available continuous wavelet functions. The list wavlist stores all possible types.
+
+    The following part of the code generates a plot for each type.
+    First, the number of columns and rows is defined, and the grid for the plot is generated. Next, the code iterates over the axes and the wavelet list simultaneously.
+    After that, the wavelet functions, labeled Psi, and their x-coordinates are generated using the command pywt.ContinuousWavelet(wavelet).
+    Finally, the legend, title, and layout are generated and adjusted.
+    plt.show() then displays the plot.
+
+    The code does not need to be modified; it is mainly included to provide an overview of all available wavelet functions.
+
+
+
+
+
+
+
+
+
+-- audio_code --
+
+Import Necessary Modules:
+    First, import all the necessary modules.
+    Install matplotlib.pyplot for plotting, numpy for calculations, and librosa for importing audio files.
+    Next, you can either create an audio file similar to the given example by defining a sine function with duration, sampling rate, and frequency, which must be set individually.
+
+Generate an Audio Signal:
+    This part of the code creates a simple sine wave audio signal and saves it as a WAV file.
+    First, set the parameters that define the audio signal, such as the duration, sampling rate, and frequency. These variables can be modified if needed.
+    Next, the time axis t and the sine wave will be defined by those parameters.
+    np.linspace generates discrete values for the time axis with even spacing.
+    The time axis starts at 0 and ends at the specified duration. The product of the sampling rate and the duration defines the number of points on the axis.
+    After that, the sine wave is generated using the np.sin function:
+                signal_selfmade = amplitude * np.sin(2 * np.pi * frequency * t)
+    Here, the sine wave is scaled by the amplitude factor.
+    Note that it is also possible to add multiple sine waves for a more complex signal.
+    In the next step, the audio signal is saved as a WAV file, which can then be loaded by the second part of the code.
+    audio_filename sets the filename for the output file; this line can be modified as desired.
+    The write() function writes the audio data to a file, with the sampling rate (sr) and audio signal passed as variables.
+
+Import/Load an Audio Signal:
+    This part of the code loads an audio file, plots its waveform, and returns the audio signal for further processing.
+    For loading the audio file, it is not necessary to create an audio file first. Any WAV file can be loaded and later analyzed.
+    signal_load is defined as a function in Python so that it can be used in the notebook for wavelet transformation.
+    To load the audio file, enter the path of the audio file that is to be loaded. For simplicity, it is helpful to upload the audio file to the same folder as the code.
+    The function signal_load(audio_path) takes the audio file's path, loads the audio file, plots the signal, saves the sample rate and signal as variables, and returns the signal and sampling rate, 
+    which are needed for the wavelet transformation.
+    The audio file is loaded using the librosa.load function.
+    sr=None ensures the preservation of the original sample rate of the audio file.
+    The signal is plotted using plt.plot().
+
+
+
+
+
+
+
+
+
+-- wavelet_trafo --
+To use this notebook, make sure to run the "audio_code" notebook first.
+
+
+Install Necessary Packages:
+    Use !pip install nbimporter to install nbimporter, which is needed to import the "audio_code" notebook.
+    Additionally, import matplotlib.pyplot as plt for plotting, numpy for calculations, and pywt, which is an open-source wavelet transformation software.
+
+
+Perform Forward and Inverse Wavelet Transformation:
+    First, import and reload the "audio_code" notebook so that it is up to date.
+    Everything You Need to Tell the Code:
+
+    Here, you need to specify which type of continuous wavelet function you want to use. For more information and an overview of the available types, check 
+    "basics_about_wavelets."
+
+
+Forward Continuous Wavelet Transformation:
+    Now you can perform the forward continuous wavelet transformation.
+    signal, sr = audio_code.signal_load() loads the signal_load function from the "audio_code" notebook, providing the signal and the sample rate (sr) as defined in "audio_code."
+    The continuous wavelet transformation is done by pywt.cwt. This function takes the signal, a scale, and the wavelet type as arguments.
+    As a result, you get the coefficients and frequencies, which you can use to plot a scalogram of your transformed signal as done afterwards.
+    plt.figure(figsize=(10, 6)) creates the figure in the right size.
+    plt.imshow(np.abs(coefficients), extent=[0, len(signal), 1, 1000], cmap='PRGn', aspect='auto', vmax=abs(coefficients).max(), vmin=0) visualizes the scalogram.
+    plt.colorbar() creates the color bar.
+
+    The following parts of the code set the title and the x- and y-labels.
+    plt.show() displays the plot.
+
+Plot Results in Different Scales:
+
+    Sometimes it might be helpful to use different x- or y-scales to display a plot, such as logarithmic scales.
+    This part of the code provides a plot with a linear frequency scale and one with a logarithmic scale.
+    The plotting works as explained before. The only difference between the linear and the logarithmic scale is that you define plt.yscale('log') for a logarithmic y-scale. This 
+    would work analogously for a logarithmic x-scale.
+    Inverse Continuous Wavelet Transformation:
+
+    As explained in "Explanation_Wavelet_Functions," you can also use an approximate inverse transformation to reconstruct your original signal. However, be careful, as this can 
+    only be seen as an approximation and does not give you an identical signal back.
+
+    This piece of code compares your original signal to the reconstructed signal.
+
+    reconstructed_signal = np.real(np.sum(coefficients, axis=0) / len(coefficients)) is the reconstruction. You divide the sum of the coefficients by the number of coefficients.
+
+    Next, you can plot the original signal and the reconstructed signal.
+
+    This part gives you the plot for the original signal:
+    plt.figure(figsize=(12, 6))
+    plt.subplot(1, 2, 1)
+    plt.plot(signal)
+    plt.title('Original Signal')
+    plt.xlabel('Time')
+    plt.ylabel('Amplitude')
+
+    And this part gives you the plot of the reconstructed signal:
+    plt.subplot(1, 2, 2)
+    plt.plot(reconstructed_signal)
+    plt.title('Reconstructed Signal from CWT')
+    plt.xlabel('Time')
+    plt.ylabel('Amplitude')
+    The plotting works as described above.
+
+    plt.tight_layout() adjusts the spacing between the two plots, and plt.show() again displays the plot.
+
